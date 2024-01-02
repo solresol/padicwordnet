@@ -29,7 +29,7 @@ def main():
     connection = open_database()
     # Initialize and prepare the database
     connection = open_database()
-    create_table(connection)
+    create_table(connection)  # Ensure synset_paths table is created if it doesn't exist
     delete_entries(connection)
 
     # Start at the top level of WordNet
