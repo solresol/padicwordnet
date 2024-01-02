@@ -26,10 +26,10 @@ def read_synset_table(database_path: str) -> pd.DataFrame:
     Read the 'synset_paths' table from a SQLite database into a DataFrame.
 
     Args:
-        database_path (str): The file path to the SQLite database.
+        database_path (str): The file path to the SQLite database, denoted as \( d \).
 
     Returns:
-        pd.DataFrame: The DataFrame containing the 'synset_paths' table.
+        pd.DataFrame: The DataFrame containing the 'synset_paths' table, denoted as \( S \).
     """
     connection = sqlite3.connect(database_path)
     df = pd.read_sql('SELECT * FROM synset_paths', connection)
