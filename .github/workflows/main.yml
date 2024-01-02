@@ -19,8 +19,10 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install nltk package
-        run: pip install nltk
+      - name: Install nltk package and download wordnet dataset
+        run: |
+          pip install nltk
+          python -c "import nltk; nltk.download('wordnet')"
 
       - name: Run wordnet2padic.py
         run: python wordnet2padic.py
