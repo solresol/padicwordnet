@@ -1,6 +1,13 @@
 import argparse
 import argparse
-#!/usr/bin/env python3
+import sys
+import argparse
+import argparse
+import sys
+
+parser = argparse.ArgumentParser(description='Process WordNet synsets and store in database')
+parser.add_argument('--database', help='Path to the database file')
+args = parser.parse_args()
 
 import nltk
 from nltk.corpus import wordnet as wn
@@ -28,7 +35,7 @@ def traverse_synset(synset, path='', connection=None):
 
 def main():
     # Open an SQLite database connection at the start of the program
-    connection = open_database()
+    connection = open_database(args.database)
     # Initialize and prepare the database
     connection = open_database()
     create_table(connection)  # Ensure synset_paths table is created if it doesn't exist
