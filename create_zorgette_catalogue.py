@@ -3,9 +3,9 @@
 import sqlite3
 
 def convert_path_to_number(p, path):
-    # Split the path into parts and reverse it for easy exponent handling
-    parts = list(map(int, path.split('.')))[::-1]
-    # Calculate the weighted sum using the provided prime number exponentiation
-    number = sum(part * (p**i) for i, part in enumerate(parts))
-    return number
+    path_parts = path.split('.')
+    result = 0
+    for i, part in enumerate(path_parts):
+        result += int(part) * (p ** i)
+    return result
 
