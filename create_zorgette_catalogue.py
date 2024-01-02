@@ -3,7 +3,17 @@
 import sqlite3
 import pandas as pd
 
-def convert_path_to_number(p, path):
+def convert_path_to_number(p: int, path: str) -> int:
+    """
+    Convert a dotted path string to a numeric value using the specified p-adic conversion.
+
+    Args:
+        p (int): The prime base for path conversion.
+        path (str): The dotted path string to convert.
+
+    Returns:
+        int: The numeric value of the path.
+    """
     path_parts = path.split('.')
     result = 0
     for i, part in enumerate(path_parts):
@@ -11,7 +21,16 @@ def convert_path_to_number(p, path):
     return result
 
 
-def read_synset_table(database_path: str) -> 'pd.DataFrame':
+def read_synset_table(database_path: str) -> pd.DataFrame:
+    """
+    Read the 'synset_paths' table from a SQLite database into a DataFrame.
+
+    Args:
+        database_path (str): The file path to the SQLite database.
+
+    Returns:
+        pd.DataFrame: The DataFrame containing the 'synset_paths' table.
+    """
     connection = sqlite3.connect(database_path)
     df = pd.read_sql('SELECT * FROM synset_paths', connection)
     connection.close()
