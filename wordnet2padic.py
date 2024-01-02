@@ -25,6 +25,8 @@ def traverse_synset(synset, path='', connection=None):
         traverse_synset(hyponym, path + '.' + str(i + 1), connection)
 
 def main():
+    # Open an SQLite database connection at the start of the program
+    connection = open_database()
     # Initialize and prepare the database
     connection = open_database()
     create_table(connection)
