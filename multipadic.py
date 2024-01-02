@@ -2,8 +2,7 @@
 
 import argparse
 import json
-import numpy as np
-import tqdm
+import fractions
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--prime", type=int, default=409,
@@ -26,19 +25,53 @@ def cross_product(v1, v2):
 def dot_product(v1, v2):
     return sum(x * y for x, y in zip(v1, v2))
 
+def fraction_format(numerator, denominator, variable="", include_plus=False):
+    f = fractions.Fraction(numerator, denominator)
+    sign = ""
+    if f.numerator > 0 and include_plus:
+      sign = " + "
+    if f.numerator < 0:
+       sign = " - "
+       f = -f
+    if f.numerator == 1 and variable != "":
+       top = f"{sign}{variable}"
+    else:
+       top = f"{sign}{f.numerator}{variable}"
+    if f.denominator == 1:
+       return top
+    return f"{top} / {f.denominator}"
+
+class PlaneEquation:
+   def __init__(self, A, B, C, D):
+      self.A = A
+      self.B = B
+      self.C = C
+      self.D = D
+   def __str__(self):
+      ba = fraction_format(- self.B, self.A, "y")
+      ca = fraction_format(- self.C, self.A, "z", include_plus=True)
+      da = fraction_format(- self.D, self.A, include_plus=True)
+      return f"x = {ba} {ca} {da}"
+
+
 def find_plane_equation(p1, p2, p3):
     v1 = [p2[i] - p1[i] for i in range(3)]
     v2 = [p3[i] - p1[i] for i in range(3)]
     normal = cross_product(v1, v2)
     A, B, C = normal
     D = -dot_product(normal, p1)
-    return A, B, C, D
+    return PlaneEquation(A, B, C, D)
 
-def solve_for_x(A, B, C, D, y, z):
-    if A == 0:
+def solve_for_x(equation, y, z):
+    if equation.A == 0:
         raise ValueError("A cannot be zero for this equation.")
-    return (-B*y - C*z - D) // A  # Use integer division for integers and fractions
+    return (-equation.B*y - equation.C*z - equation.D) // equation.A  # Use integer division for integers and fractions
 
+# To-do:
+#   - put padic_measure and padic_distance into a file called padic.py
+#   - padic_measure should check to see if q is fractional. If it is,
+#     then it should call itself with the numerator and denominator and
+#     subtract the latter from the former.
 def padic_measure(prime, q):
     if q == 0:
         return 0.0
@@ -48,13 +81,12 @@ def padic_measure(prime, q):
 
 def padic_distance(prime, r, s):
     q = r - s
-    print(f"{r} - {s} = {q}")
     answer = prime ** (- padic_measure(prime, q))
-    print(f"|{q}|_prime = {answer}")
     return answer
     
 best_triple = None
 score = None
+best_equation = None
 
 for i, p1 in enumerate(data):
     for j, p2 in enumerate(data):
@@ -63,43 +95,25 @@ for i, p1 in enumerate(data):
         for k, p3 in enumerate(data):
             if k <= i or k <= j:
                 continue
-            A, B, C, D = find_plane_equation(p1, p2, p3)
+            equation = find_plane_equation(p1, p2, p3)
             # Now, we go through each point in our data set and
             # see what the residual is.
             sum_of_residuals = 0.0
             for p4 in data:
-                p4_hat = solve_for_x(A, B, C, D, p4[1], p4[2])
+                p4_hat = solve_for_x(equation, p4[1], p4[2])
                 residual = padic_distance(args.prime, p4[0], p4_hat)
-                #print(p1, p2, p3, p4, A, B, C, D, p4_hat, residual)
                 sum_of_residuals += residual
             if score is None or sum_of_residuals < score:
                 score = sum_of_residuals
                 best_triple = (p1,p2,p3)
+                best_equation = equation
+                print(f"{best_equation}  -> {score}")
 
-print(best_triple)
-winning_equation =  find_plane_equation(best_triple[0], best_triple[1], best_triple[2])
-print(winning_equation)
-
-intercept = solve_for_x(winning_equation[0],
-                    winning_equation[1],
-                    winning_equation[2],
-                    winning_equation[3],
-                    0,
-                    0)
+intercept = solve_for_x(best_equation, 0, 0)
 print(intercept)
 
-coef1 = solve_for_x(winning_equation[0],
-                    winning_equation[1],
-                    winning_equation[2],
-                    winning_equation[3],
-                    1,
-                    0) - intercept
+coef1 = solve_for_x(best_equation, 1, 0) - intercept
 print(coef1)
 
-coef2 = solve_for_x(winning_equation[0],
-            winning_equation[1],
-            winning_equation[2],
-            winning_equation[3],
-            0,
-                    1) - intercept
+coef2 = solve_for_x(best_equation, 0, 1) - intercept
 print(coef2)
