@@ -3,7 +3,7 @@
 import sqlite3
 import json
 import random
-from typing import List, Tuple
+from typing import List, Tuple, Dict, Union
 
 def convert_path_to_number(p: int, path: str) -> int:
     """
@@ -57,7 +57,7 @@ def path_of_synset(dbconn: sqlite3.Connection, synset_name: str) -> str:
     cursor.close()
     return path
 
-def errand(dbconn, good_path, bad_path, prime):
+def errand(dbconn: sqlite3.Connection, good_path: str, bad_path: str, prime: int) -> Dict[str, Union[str, int]]:
     zorgette_request, zorgette_path = random_synset(dbconn, good_path, minimum_hyponyms=100)[0]    
     good_robots = random_synset(dbconn,
                                 zorgette_path,
