@@ -3,6 +3,7 @@
 import sqlite3
 import json
 import random
+from typing import List, Tuple
 
 def convert_path_to_number(p: int, path: str) -> int:
     """
@@ -22,7 +23,7 @@ def convert_path_to_number(p: int, path: str) -> int:
     return result
 
 
-def random_synset(dbconn, under_path='1', how_many=1, minimum_hyponyms=1):
+def random_synset(dbconn: sqlite3.Connection, under_path: str = '1', how_many: int = 1, minimum_hyponyms: int = 1) -> List[Tuple[str, str]]:
     """
     Read the 'synset_paths' table from a SQLite database into a DataFrame.
 
