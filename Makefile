@@ -1,4 +1,4 @@
-all: wordnet.db build test
+all: create_db build test
 
 wordnet.db: wordnet2padic.py
 	# Install dependencies and set up the environment
