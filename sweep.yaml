@@ -3,7 +3,7 @@
 
 # This setting contains a list of rules that Sweep will check for. If any of these rules are broken in a new commit, Sweep will create an pull request to fix the broken rule.
 rules:
-  - "Type annotations are nice if you can."
+  - "Use type annotations whenever possible."
   - "Write documentation in LaTeX generally."
   - "Makefiles are nice. Try to use them to keep track of sequencing."
 
