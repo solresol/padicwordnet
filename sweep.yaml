@@ -4,8 +4,7 @@
 # This setting contains a list of rules that Sweep will check for. If any of these rules are broken in a new commit, Sweep will create an pull request to fix the broken rule.
 rules:
   - "Use type annotations whenever possible."
-  - "Write documentation in LaTeX generally."
-  - "Makefiles are nice. Try to use them to keep track of sequencing."
+  - "There should be a Makefile in the root of the repository for sequencing and building and running tests."
 
 # This is the branch that Sweep will develop from and make pull requests to. Most people use 'main' or 'master' but some users also use 'dev' or 'staging'.
 branch: 'main'
