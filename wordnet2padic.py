@@ -40,8 +40,9 @@ def main():
     #    # Only process top-level synsets (those without hypernyms)
     #    if not synset.hypernyms():
     #        traverse_synset(synset, path=str(i + 1))
-    # Commit the changes to the database and close the connection
+    # Commit the changes to the database
     connection.commit()
+    # Close the connection
     connection.close()
 
 if __name__ == "__main__":
