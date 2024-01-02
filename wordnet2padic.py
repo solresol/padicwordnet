@@ -22,7 +22,7 @@ import sqlite3
 largest_number = 0
 found_in = ""
 
-def traverse_synset(synset: wn.Synset, path: str = '', connection: Optional[sqlite3.Connection] = None):
+def traverse_synset(synset: wn.synset, path: str = '', connection: Optional[sqlite3.Connection] = None):
     """
     Traverses the given synset (WordNet node), stores its path and name in the database,
     and recursively traverses its hyponyms (children).
