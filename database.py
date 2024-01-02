@@ -9,7 +9,8 @@ def create_table(connection):
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS synset_paths (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            path TEXT
+            path TEXT,
+            synset_name TEXT
         );
     """)
 
