@@ -21,6 +21,6 @@ def delete_entries(connection):
     cursor = connection.cursor()
     cursor.execute("DELETE FROM synset_paths;")
 
-def save_path(connection, path, synset_name):
+def save_path(connection, path, synset_name, direct_hyponym_count, recursive_hyponym_count):
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO synset_paths (path, synset_name) VALUES (?, ?);", (path, synset_name))
+    cursor.execute("INSERT INTO synset_paths (path, synset_name, direct_hyponym_count, recursive_hyponym_count) VALUES (?, ?, ?, ?);", (path, synset_name, direct_hyponym_count, recursive_hyponym_count))
