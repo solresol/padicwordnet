@@ -45,7 +45,7 @@ def random_synset(dbconn: sqlite3.Connection, under_path: str = '1', how_many: i
     return random.sample(all_synsets, k=how_many)
 
 
-def path_of_synset(dbconn, synset_name):
+def path_of_synset(dbconn: sqlite3.Connection, synset_name: str) -> str:
     cursor = dbconn.cursor()
     cursor.execute("select path from synset_paths where synset_name = ? limit 1",
                    [synset_name])
