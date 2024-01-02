@@ -1,6 +1,6 @@
 all: create_db build test
 
-create_db:
+wordnet.db: wordnet2padic.py
 	# Install dependencies and set up the environment
 	# Command to run wordnet2padic.py and create wordnet.db
 	python3 wordnet2padic.py
