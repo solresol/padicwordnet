@@ -1,4 +1,9 @@
-all: build test
+all: create_db build test
+
+create_db:
+	# Install dependencies and set up the environment
+	# Command to run wordnet2padic.py and create wordnet.db
+	python3 wordnet2padic.py
 
 build:
     # Add commands for compiling the code and generating artifacts
