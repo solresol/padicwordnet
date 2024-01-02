@@ -30,6 +30,7 @@ def main():
     # Initialize and prepare the database
     connection = open_database()
     create_table(connection)  # Ensure synset_paths table is created if it doesn't exist
+    # Delete any existing entries in the table
     delete_entries(connection)
 
     # Start at the top level of WordNet
