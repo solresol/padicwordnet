@@ -3,7 +3,17 @@
 import sqlite3
 import pandas as pd
 
-def convert_path_to_number(p, path):
+def convert_path_to_number(p: int, path: str) -> int:
+    """
+    Convert a dotted path string to a numeric value using the specified p-adic conversion.
+
+    Args:
+        p (int): The prime base for path conversion.
+        path (str): The dotted path string to convert.
+
+    Returns:
+        int: The numeric value of the path.
+    """
     path_parts = path.split('.')
     result = 0
     for i, part in enumerate(path_parts):
