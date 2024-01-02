@@ -1,0 +1,35 @@
+\documentclass{article}
+
+\begin{document}
+
+\section{create\_zorgette\_catalogue.py Documentation}
+
+The `create\_zorgette\_catalogue.py` script is responsible for converting a path to a number using the p-adic algorithm.
+
+\subsection{Function: convert\_path\_to\_number(p, path)}
+
+This function takes two parameters: `p` and `path`. It converts the given `path` to a number using the p-adic algorithm with the base `p`. The function returns the resulting number.
+
+\subsubsection*{Parameters}
+
+\begin{itemize}
+  \item `p` (int): The base for the p-adic algorithm.
+  \item `path` (str): The path to be converted to a number.
+\end{itemize}
+
+\subsubsection*{Returns}
+
+\begin{itemize}
+  \item `result` (int): The number obtained by converting the `path` using the p-adic algorithm.
+\end{itemize}
+
+\subsubsection*{Example Usage}
+
+\begin{verbatim}
+p = 2
+path = "1.2.3"
+result = convert_path_to_number(p, path)
+print(result)  # Output: 11
+\end{verbatim}
+
+\end{document}
