@@ -3,7 +3,7 @@
 import sqlite3
 import pandas as pd
 
-def convert_path_to_number(p: int, path: str) -> int:
+def convert_path_to_number(p, path):
     path_parts = path.split('.')
     result = 0
     for i, part in enumerate(path_parts):
