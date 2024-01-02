@@ -159,3 +159,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 wordnet.db
+*~
+zorgette-catalog.csv
+zorgette-catalog.tex
+zorgette-catalog.json
