@@ -1,8 +1,9 @@
 import sqlite3
+import argparse
 
 
-def open_database():
-    return sqlite3.connect("wordnet.db")
+def open_database(database_path='wordnet.db'):
+    return sqlite3.connect(database_path)
 
 def create_table(connection):
     cursor = connection.cursor()
