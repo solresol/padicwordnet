@@ -15,7 +15,7 @@ def traverse_synset(synset, path='', connection=None):
     global largest_number
     global found_in
     # Save the current synset's path and name to the database
-    save_path(connection, f'{path} - {synset.name()}')
+    save_path(connection, path, synset.name())
 
     # Recursively traverse each hyponym
     for i, hyponym in enumerate(synset.hyponyms()):
