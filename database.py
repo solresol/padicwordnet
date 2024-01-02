@@ -11,7 +11,9 @@ def create_table(connection):
         CREATE TABLE IF NOT EXISTS synset_paths (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             path TEXT,
-            synset_name TEXT
+            synset_name TEXT,
+            direct_hyponym_count INTEGER,
+            recursive_hyponym_count INTEGER
         );
     """)
 
