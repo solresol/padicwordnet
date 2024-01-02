@@ -39,7 +39,7 @@ def traverse_synset(synset: wn.Synset, path: str = '', connection: Optional[sqli
             found_in = hyponym
         traverse_synset(hyponym, path + '.' + str(i + 1), connection)
 
-def main():
+def main() -> None:
     # Open an SQLite database connection at the start of the program
     connection = open_database(args.database)
     # Initialize and prepare the database
