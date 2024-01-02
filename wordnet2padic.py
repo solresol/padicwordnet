@@ -9,7 +9,7 @@ found_in = ""
 
 def traverse_synset(synset, path='', connection=None):
     """
-    Traverses the given synset (WordNet node), prints its path and name,
+    Traverses the given synset (WordNet node), stores its path and name in the database,
     and recursively traverses its hyponyms (children).
     """
     global largest_number
