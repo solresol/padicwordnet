@@ -18,6 +18,6 @@ def delete_entries(connection):
     cursor = connection.cursor()
     cursor.execute("DELETE FROM synset_paths;")
 
-def save_path(connection, path):
+def save_path(connection, path, synset_name):
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO synset_paths (path) VALUES (?);", (path,))
+    cursor.execute("INSERT INTO synset_paths (path, synset_name) VALUES (?, ?);", (path, synset_name))
