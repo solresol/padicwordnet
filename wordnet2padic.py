@@ -6,7 +6,7 @@ import argparse
 import sys
 
 parser = argparse.ArgumentParser(description='Process WordNet synsets and store in database')
-parser.add_argument('--database', help='Path to the database file')
+parser.add_argument('--database', help='Path to the database file', default='wordnet.db')
 args = parser.parse_args()
 
 import nltk
