@@ -12,7 +12,9 @@ args = parser.parse_args()
 
 import nltk
 from nltk.corpus import wordnet as wn
+from typing import Optional
 from database import open_database, create_table, delete_entries, save_path
+import sqlite3
 import sqlite3
 
 # TODO: Add type hint: sqlite3.Connection for the 'connection' parameter of the 'create_table' function where it is defined.
@@ -20,7 +22,7 @@ import sqlite3
 largest_number = 0
 found_in = ""
 
-def traverse_synset(synset, path='', connection=None):
+def traverse_synset(synset: wn.Synset, path: str = '', connection: Optional[sqlite3.Connection] = None):
     """
     Traverses the given synset (WordNet node), stores its path and name in the database,
     and recursively traverses its hyponyms (children).
