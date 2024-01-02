@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sqlite3
+import pandas as pd
 
 def convert_path_to_number(p: int, path: str) -> int:
     path_parts = path.split('.')
@@ -8,6 +9,13 @@ def convert_path_to_number(p: int, path: str) -> int:
     for i, part in enumerate(path_parts):
         result += int(part) * (p ** i)
     return result
+
+
+def read_synset_table(database_path: str) -> 'pd.DataFrame':
+    connection = sqlite3.connect(database_path)
+    df = pd.read_sql('SELECT * FROM synset_paths', connection)
+    connection.close()
+    return df
 
 
 def main():
