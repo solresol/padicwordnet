@@ -3,9 +3,10 @@
 
 # This setting contains a list of rules that Sweep will check for. If any of these rules are broken in a new commit, Sweep will create an pull request to fix the broken rule.
 rules:
-  - "All new business logic should have corresponding unit tests."
-  - "Refactor large functions to be more modular."
-  - "Add docstrings to all functions and file headers."
+  - "Test code isn't really necessary. As long as the processing works correctly from start to finish, it's all good."
+  - "Type annotations are nice if you can."
+  - "Write documentation in LaTeX generally."
+  - "Makefiles are nice. Try to use them to keep track of sequencing."
 
 # This is the branch that Sweep will develop from and make pull requests to. Most people use 'main' or 'master' but some users also use 'dev' or 'staging'.
 branch: 'main'
@@ -18,7 +19,7 @@ gha_enabled: True
 # Example:
 #
 # description: sweepai/sweep is a python project. The main api endpoints are in sweepai/api.py. Write code that adheres to PEP8.
-description: ''
+description: 'solresol/padicwordnet is a research project connecting the p-adic numbers to linguistics by considering nodes in wordnet to be p-adic numbers'
 
 # This sets whether to create pull requests as drafts. If this is set to True, then all pull requests will be created as drafts and GitHub Actions will not be triggered.
 draft: False
