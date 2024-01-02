@@ -44,6 +44,5 @@ def main():
     connection.commit()
     # Close the connection
     connection.close()
-
 if __name__ == "__main__":
     main()
