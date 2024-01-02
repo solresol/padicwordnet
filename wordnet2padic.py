@@ -12,7 +12,7 @@ args = parser.parse_args()
 
 import nltk
 from nltk.corpus import wordnet as wn
-from database import open_database, create_table, delete_entries, save_path
+from database import open_database, create_table, delete_entries, save_path  # TODO: Add type annotation to open_database in the database module.
 
 largest_number = 0
 found_in = ""
