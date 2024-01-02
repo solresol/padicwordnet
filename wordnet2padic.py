@@ -30,13 +30,15 @@ def traverse_synset(synset: nltk.corpus.reader.wordnet.Synset, path: str = '', c
     global largest_number
     global found_in
     # Save the current synset's path and name to the database
-    save_path(connection, path, synset.name())
-
     # Recursively traverse each hyponym
-    hyponym_count = 0
+    direct_hyponym_count = 0
+    recursive_hyponym_count = 0
     for i, hyponym in enumerate(synset.hyponyms()):
-        hyponym_count += 1 + traverse_synset(hyponym, path + '.' + str(i + 1), connection)
-    return hyponym_count
+        direct_hyponym_count += 1
+        recursive_hyponym_count += 1 + traverse_synset(hyponym, path + '.' + str(i + 1), connection)
+    # Save the current synset's path and name to the database after traversing hyponyms
+    save_path(connection, path, synset.name(), direct_hyponym_count, recursive_hyponym_count)
+    return recursive_hyponym_count
 
 def main() -> None:
     # Open an SQLite database connection at the start of the program
