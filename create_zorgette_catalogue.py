@@ -3,6 +3,7 @@
 import sqlite3
 import json
 import random
+from typing import List, Tuple, Dict, Union
 
 def convert_path_to_number(p: int, path: str) -> int:
     """
@@ -22,7 +23,7 @@ def convert_path_to_number(p: int, path: str) -> int:
     return result
 
 
-def random_synset(dbconn, under_path='1', how_many=1, minimum_hyponyms=1):
+def random_synset(dbconn: sqlite3.Connection, under_path: str = '1', how_many: int = 1, minimum_hyponyms: int = 1) -> List[Tuple[str, str]]:
     """
     Read the 'synset_paths' table from a SQLite database into a DataFrame.
 
@@ -44,7 +45,7 @@ def random_synset(dbconn, under_path='1', how_many=1, minimum_hyponyms=1):
     return random.sample(all_synsets, k=how_many)
 
 
-def path_of_synset(dbconn, synset_name):
+def path_of_synset(dbconn: sqlite3.Connection, synset_name: str) -> str:
     cursor = dbconn.cursor()
     cursor.execute("select path from synset_paths where synset_name = ? limit 1",
                    [synset_name])
@@ -56,7 +57,7 @@ def path_of_synset(dbconn, synset_name):
     cursor.close()
     return path
 
-def errand(dbconn, good_path, bad_path, prime):
+def errand(dbconn: sqlite3.Connection, good_path: str, bad_path: str, prime: int) -> Dict[str, Union[str, int]]:
     zorgette_request, zorgette_path = random_synset(dbconn, good_path, minimum_hyponyms=100)[0]    
     good_robots = random_synset(dbconn,
                                 zorgette_path,
