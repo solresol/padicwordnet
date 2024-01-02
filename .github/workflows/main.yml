@@ -19,6 +19,9 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install nltk package
+        run: pip install nltk
+
       - name: Run wordnet2padic.py
         run: python wordnet2padic.py
         id: script
