@@ -5,14 +5,14 @@ import pandas as pd
 
 def convert_path_to_number(p: int, path: str) -> int:
     """
-    Convert a dotted path string to a numeric value using the specified p-adic conversion.
+    Convert a dotted path string \( s \) to a numeric value \( N \) using the specified p-adic conversion.
 
     Args:
-        p (int): The prime base for path conversion.
-        path (str): The dotted path string to convert.
+        p (int): The prime base for path conversion \( p \).
+        path (str): The dotted path string \( s \) to convert.
 
     Returns:
-        int: The numeric value of the path.
+        int: The numeric value of the path \( N \).
     """
     path_parts = path.split('.')
     result = 0
