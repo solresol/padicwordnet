@@ -27,34 +27,59 @@ def cross_product(v1, v2):
 def dot_product(v1, v2):
     return sum(x * y for x, y in zip(v1, v2))
 
-def fraction_format(numerator, denominator, variable="", include_plus=False):
-    f = fractions.Fraction(numerator, denominator)
-    sign = ""
-    if f.numerator > 0 and include_plus:
-      sign = " + "
-    if f.numerator < 0:
-       sign = " - "
-       f = -f
-    if f.numerator == 1 and variable != "":
-       top = f"{sign}{variable}"
-    else:
-       top = f"{sign}{f.numerator}{variable}"
-    if f.denominator == 1:
-       return top
-    return f"{top} / {f.denominator}"
+
+class PlaceValued:
+    def __init__(self, prime, prime_symbol, number):
+        if number == 0:
+            return 0
+        signum = 1
+        if number < 0:
+            signum = -1
+            number = -number
+        # number is now positive
+        expression = 0
+        power = 0
+        while number > 0:
+            remainder = number % prime
+            expression += remainder * (prime_symbol ** power)
+            power += 1
+            number = number - remainder
+            number = number // prime
+        return signum * expression
 
 class PlaneEquation:
-   def __init__(self, A, B, C, D):
-      self.A = A
-      self.B = B
-      self.C = C
-      self.D = D
-   def __str__(self):
-      ba = fraction_format(- self.B, self.A, "y")
-      ca = fraction_format(- self.C, self.A, "z", include_plus=True)
-      da = fraction_format(- self.D, self.A, include_plus=True)
-      return f"x = {ba} {ca} {da}"
+    def __init__(self, A, B, C, D):
+        self.A = A
+        self.B = B
+        self.C = C
+        self.D = D
 
+    def fractional_expression(self):
+        x, y, z = sympy.symbols('x y z')
+        self.fractional_lhs_expression = x
+        self.fractional_rhs_expression = (
+            - fractions.Fraction(self.B,self.A) * y
+            - fractions.Fraction(self.C,self.A) * z
+            - fractions.Fraction(self.D,self.A)
+        )
+        return (self.fractional_lhs_expression, self.fractional_rhs_expression)
+
+    def fractional_expression_string(self):
+        l,r = self.fractional_expression()
+        return str(l) + " = " + str(r)
+
+    def integer_expression(self):
+        x, y, z = sympy.symbols('x y z')
+        self.integral_lhs_expression = self.A * x
+        self.integral_rhs_expression = - self.B * y - self.C * z - self.D
+        return (self.integral_lhs_expression, self.integral_rhs_expression)
+
+    def integer_expression_string(self):
+        l,r = self.fractional_expression()
+        return str(l) + " = " + str(r)
+
+    def __str__(self):
+        return self.integer_expression_string()
 
 def find_plane_equation(p1, p2, p3):
     v1 = [p2[i] - p1[i] for i in range(3)]
@@ -95,11 +120,5 @@ for i, p1 in enumerate(data):
                 best_equation = equation
                 print(f"{best_equation}  -> {score}")
 
-intercept = solve_for_x(best_equation, 0, 0)
-print(intercept)
-
-coef1 = solve_for_x(best_equation, 1, 0) - intercept
-print(coef1)
-
-coef2 = solve_for_x(best_equation, 0, 1) - intercept
-print(coef2)
+print()
+print(best_equation)
