@@ -79,7 +79,7 @@ def main():
     import argparse
     import pandas
 
-    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser = argparse.ArgumentParser(description="Simulate Zorgette's collection process.")
     parser.add_argument('--prime', type=int, default=409, help='The prime base for path conversion.')
     parser.add_argument('--database', type=str, default='wordnet.db', help='The database file path.')
     parser.add_argument('--random-seed', type=int, default=51, help='Reproducible output.')
