@@ -1,3 +1,4 @@
+from create_zorgette_catalogue import Tuple
 #!/usr/bin/env python3
 
 import argparse
@@ -17,7 +18,7 @@ data = json.load(open(args.input_file))
 
 # Something funny about this... there's only one division. That
 # doesn't seem right. Unless A is really big?
-def cross_product(v1, v2):
+def cross_product(v1: Tuple[float, float, float], v2: Tuple[float, float, float]) -> Tuple[float, float, float]:
     return (
         v1[1] * v2[2] - v1[2] * v2[1],
         v1[2] * v2[0] - v1[0] * v2[2],
