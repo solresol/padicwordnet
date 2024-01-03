@@ -5,6 +5,7 @@
 rules:
   - "Use type annotations whenever possible."
   - "There should be a Makefile in the root of the repository for sequencing and building and running tests."
+  - "Some python files will begin with #!/usr/bin/env python on the first line. Don't put any import statements (or any other code) before the #!/usr/bin/env python comment in those files, always put it afterwards."
 
 # This is the branch that Sweep will develop from and make pull requests to. Most people use 'main' or 'master' but some users also use 'dev' or 'staging'.
 branch: 'main'
