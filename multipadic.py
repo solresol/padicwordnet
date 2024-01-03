@@ -75,7 +75,7 @@ class PlaneEquation:
         self.integral_rhs_expression = - self.B * y - self.C * z - self.D
         return (self.integral_lhs_expression, self.integral_rhs_expression)
 
-    def integer_expression_string(self):
+    def integer_expression_string(self) -> str:
         l,r = self.fractional_expression()
         return str(l) + " = " + str(r)
 
