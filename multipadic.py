@@ -65,7 +65,7 @@ class PlaneEquation:
         )
         return (self.fractional_lhs_expression, self.fractional_rhs_expression)
 
-    def fractional_expression_string(self):
+    def fractional_expression_string(self) -> str:
         l,r = self.fractional_expression()
         return str(l) + " = " + str(r)
 
