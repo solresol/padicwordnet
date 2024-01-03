@@ -24,6 +24,9 @@ jobs:
           pip install nltk
           python -c "import nltk; nltk.download('wordnet')"
 
+      - name: Install dependencies
+        run: pip install pandas
+
       - name: Run Makefile
         run: make
         id: script
