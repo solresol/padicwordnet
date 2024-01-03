@@ -1,14 +1,10 @@
-all: create_db build test
+all: wordnet.db zorgette-catalog.json zorgette-catalog.tex zorgette-results.tex
 
 wordnet.db: wordnet2padic.py
-	# Install dependencies and set up the environment
-	# Command to run wordnet2padic.py and create wordnet.db
-	python3 wordnet2padic.py
+	python3 wordnet2padic.py --database wordnet.db
 
-build:
-    # Add commands for compiling the code and generating artifacts
-    # Include any necessary commands for installing dependencies or setting up the environment
+zorgette-catalog.json zorgette-catalog.tex: create_zorgette_catalogue.py wordnet.db
+	python3 create_zorgette_catalogue.py --database wordnet.db --json-output zorgette-catalog.json --latex-output zorgette-catalog.tex
 
-test:
-    # Add commands for running the test suite
-    # Include any necessary commands for running the unit tests
+zorgette-results.tex: zorgette-catalog.json multipadic.py
+	python3 multipadic.py --input-file zorgette-catalog.json
