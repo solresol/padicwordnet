@@ -69,7 +69,7 @@ class PlaneEquation:
         l,r = self.fractional_expression()
         return str(l) + " = " + str(r)
 
-    def integer_expression(self):
+    def integer_expression(self) -> Tuple[sympy.Expr, sympy.Expr]:
         x, y, z = sympy.symbols('x y z')
         self.integral_lhs_expression = self.A * x
         self.integral_rhs_expression = - self.B * y - self.C * z - self.D
