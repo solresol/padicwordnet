@@ -17,6 +17,7 @@ def traverse_synset(synset: nltk.corpus.reader.wordnet.Synset, path: str = '', c
     """
     global largest_number
     global found_in
+    path_length = len(path.split('.'))
     # Save the current synset's path and name to the database
     # Recursively traverse each hyponym
     direct_hyponym_count = 0
@@ -25,7 +26,7 @@ def traverse_synset(synset: nltk.corpus.reader.wordnet.Synset, path: str = '', c
         direct_hyponym_count += 1
         recursive_hyponym_count += 1 + traverse_synset(hyponym, path + '.' + str(i + 1), connection)
     # Save the current synset's path and name to the database after traversing hyponyms
-    save_path(connection, path, synset.name(), direct_hyponym_count, recursive_hyponym_count)
+    save_path(connection, path, synset.name(), direct_hyponym_count, recursive_hyponym_count, path_length)
     return recursive_hyponym_count
 
 

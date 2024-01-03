@@ -13,7 +13,8 @@ def create_table(connection):
             path TEXT,
             synset_name TEXT,
             direct_hyponym_count INTEGER,
-            recursive_hyponym_count INTEGER
+            recursive_hyponym_count INTEGER,
+            path_length INTEGER
         );
     """)
 
@@ -21,6 +22,6 @@ def delete_entries(connection):
     cursor = connection.cursor()
     cursor.execute("DELETE FROM synset_paths;")
 
-def save_path(connection, path, synset_name, direct_hyponym_count, recursive_hyponym_count):
+def save_path(connection, path, synset_name, direct_hyponym_count, recursive_hyponym_count, path_length):
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO synset_paths (path, synset_name, direct_hyponym_count, recursive_hyponym_count) VALUES (?, ?, ?, ?);", (path, synset_name, direct_hyponym_count, recursive_hyponym_count))
+    cursor.execute("INSERT INTO synset_paths (path, synset_name, direct_hyponym_count, recursive_hyponym_count, path_length) VALUES (?, ?, ?, ?, ?);", (path, synset_name, direct_hyponym_count, recursive_hyponym_count, path_length))
