@@ -30,7 +30,7 @@ def dot_product(v1: Tuple[float, float, float], v2: Tuple[float, float, float]) 
 
 
 class PlaceValued:
-    def __init__(self, prime, prime_symbol, number):
+    def __init__(self, prime: int, prime_symbol: str, number: int) -> None:
         if number == 0:
             return 0
         signum = 1
