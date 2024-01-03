@@ -25,7 +25,7 @@ def cross_product(v1: Tuple[float, float, float], v2: Tuple[float, float, float]
         v1[0] * v2[1] - v1[1] * v2[0]
     )
 
-def dot_product(v1, v2):
+def dot_product(v1: Tuple[float, float, float], v2: Tuple[float, float, float]) -> float:
     return sum(x * y for x, y in zip(v1, v2))
 
 
