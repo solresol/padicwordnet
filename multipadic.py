@@ -49,7 +49,7 @@ class PlaceValued:
         return signum * expression
 
 class PlaneEquation:
-    def __init__(self, A, B, C, D):
+    def __init__(self, A: float, B: float, C: float, D: float) -> None:
         self.A = A
         self.B = B
         self.C = C
