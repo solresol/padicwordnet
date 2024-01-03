@@ -1,6 +1,7 @@
 import fractions
+from typing import Optional, Union
 # Calculate padic measure
-def measure(prime, q):
+def measure(prime: int, q: Union[int, fractions.Fraction]) -> Optional[float]:
     if q == 0:
         return None
     if type(q) == fractions.Fraction:
@@ -12,7 +13,7 @@ def measure(prime, q):
     raise ValueError(q)
 
 # Calculate padic distance between r and s
-def distance(prime, r, s):
+def distance(prime: int, r: Union[int, fractions.Fraction], s: Union[int, fractions.Fraction]) -> float:
     q = r - s
     m = measure(prime, q)
     if m is None:

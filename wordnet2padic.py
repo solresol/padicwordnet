@@ -10,7 +10,7 @@ import sqlite3
 largest_number = 0
 found_in = ""
 
-def traverse_synset(synset: nltk.corpus.reader.wordnet.Synset, path: str = '', connection: Optional[sqlite3.Connection] = None):
+def traverse_synset(synset: nltk.corpus.reader.wordnet.Synset, path: str = '', connection: Optional[sqlite3.Connection] = None) -> int:
     """
     Traverses the given synset (WordNet node), stores its path and name in the database,
     and recursively traverses its hyponyms (children).
@@ -30,10 +30,10 @@ def traverse_synset(synset: nltk.corpus.reader.wordnet.Synset, path: str = '', c
     return recursive_hyponym_count
 
 
-def main() -> None:
+def main() -> int:
     import argparse
     parser = argparse.ArgumentParser(description='Process WordNet synsets and store in database')
-    parser.add_argument('--database', help='Path to the database file', default='wordnet.db')
+    parser.add_argument('--database', type=str, help='Path to the database file', default='wordnet.db')
     args = parser.parse_args()
     # Open an SQLite database connection at the start of the program
     connection = open_database(args.database)
