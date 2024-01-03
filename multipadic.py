@@ -1,7 +1,7 @@
+#!/usr/bin/env python3
 from create_zorgette_catalogue import Tuple
 from create_zorgette_catalogue import Union
 from create_zorgette_catalogue import List
-#!/usr/bin/env python3
 
 import argparse
 import json
