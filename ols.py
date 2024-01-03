@@ -14,13 +14,26 @@ parser.add_argument("--input-file", default="zorgette-catalog.json",
 parser.add_argument("--output", help="Where to create a LaTeX file with the equation results")
 args = parser.parse_args()
 
-data = pandas.DataFrame(json.load(open(args.input_file)), columns=['x', 'y', 'z'])
+def load_data(input_file: str) -> pandas.DataFrame:
+    data = pandas.DataFrame(json.load(open(input_file)), columns=['x', 'y', 'z'])
+    return data
+
+data = load_data(args.input_file)
 
 ols = sklearn.linear_model.LinearRegression()
-ols.fit(data[['y', 'z']], data.x)
+def ols_fit(data: pandas.DataFrame) -> sklearn.linear_model.LinearRegression:
+    ols = sklearn.linear_model.LinearRegression()
+    ols.fit(data[['y', 'z']], data['x'])
+    return ols
+
+ols = ols_fit(data)
 
 y, z = sympy.symbols('y z')
-equation = ols.coef_[0] * y + ols.coef_[1] * z + ols.intercept_
+def calculate_equation(ols: sklearn.linear_model.LinearRegression, y: sympy.Symbol, z: sympy.Symbol) -> sympy.Add:
+    equation = ols.coef_[0] * y + ols.coef_[1] * z + ols.intercept_
+    return equation
+
+equation = calculate_equation(ols, y, z)
 
 if args.output:
     with open(args.output,'w') as f:
