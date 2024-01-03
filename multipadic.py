@@ -91,7 +91,7 @@ def find_plane_equation(p1: List[float], p2: List[float], p3: List[float]) -> Pl
     D = -dot_product(normal, p1)
     return PlaneEquation(A, B, C, D)
 
-def solve_for_x(equation, y, z):
+def solve_for_x(equation: PlaneEquation, y: float, z: float) -> int:
     if equation.A == 0:
         raise ValueError("A cannot be zero for this equation.")
     return (-equation.B*y - equation.C*z - equation.D) // equation.A  # Use integer division for integers and fractions
