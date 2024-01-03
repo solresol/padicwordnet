@@ -3,6 +3,7 @@ from create_zorgette_catalogue import Tuple
 
 import argparse
 import json
+from typing import List
 import fractions
 import sympy
 import padic
@@ -82,7 +83,7 @@ class PlaneEquation:
     def __str__(self):
         return self.integer_expression_string()
 
-def find_plane_equation(p1, p2, p3):
+def find_plane_equation(p1: List[float], p2: List[float], p3: List[float]) -> PlaneEquation:
     v1 = [p2[i] - p1[i] for i in range(3)]
     v2 = [p3[i] - p1[i] for i in range(3)]
     normal = cross_product(v1, v2)
