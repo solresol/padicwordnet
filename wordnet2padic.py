@@ -1,23 +1,11 @@
 #!/usr/bin/env python3
-import argparse
-import argparse
-import sys
-import argparse
-import argparse
-import sys
 
-parser = argparse.ArgumentParser(description='Process WordNet synsets and store in database')
-parser.add_argument('--database', help='Path to the database file', default='wordnet.db')
-args = parser.parse_args()
-
+import sys
 import nltk
 from nltk.corpus import wordnet as wn
 from typing import Optional
 from database import open_database, create_table, delete_entries, save_path
 import sqlite3
-import sqlite3
-
-# TODO: Add type hint: sqlite3.Connection for the 'connection' parameter of the 'create_table' function where it is defined.
 
 largest_number = 0
 found_in = ""
@@ -40,7 +28,12 @@ def traverse_synset(synset: nltk.corpus.reader.wordnet.Synset, path: str = '', c
     save_path(connection, path, synset.name(), direct_hyponym_count, recursive_hyponym_count)
     return recursive_hyponym_count
 
+
 def main() -> None:
+    import argparse
+    parser = argparse.ArgumentParser(description='Process WordNet synsets and store in database')
+    parser.add_argument('--database', help='Path to the database file', default='wordnet.db')
+    args = parser.parse_args()
     # Open an SQLite database connection at the start of the program
     connection = open_database(args.database)
     # Initialize and prepare the database
@@ -60,5 +53,6 @@ def main() -> None:
     connection.commit()
     # Close the connection
     connection.close()
+
 if __name__ == "__main__":
     main()
