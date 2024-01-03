@@ -1,3 +1,6 @@
+from create_zorgette_catalogue import Tuple
+from create_zorgette_catalogue import Union
+from create_zorgette_catalogue import List
 #!/usr/bin/env python3
 
 import argparse
@@ -25,18 +28,18 @@ data = json.load(open(args.input_file))
 
 # Something funny about this... there's only one division. That
 # doesn't seem right. Unless A is really big?
-def cross_product(v1, v2):
+def cross_product(v1: List[int], v2: List[int]) -> List[int]:
     return (
         v1[1] * v2[2] - v1[2] * v2[1],
         v1[2] * v2[0] - v1[0] * v2[2],
         v1[0] * v2[1] - v1[1] * v2[0]
     )
 
-def dot_product(v1, v2):
+def dot_product(v1: List[int], v2: List[int]) -> int:
     return sum(x * y for x, y in zip(v1, v2))
 
 
-def place_valued(prime, prime_symbol, number):
+def place_valued(prime: int, prime_symbol: sympy.Symbol, number: Union[int, fractions.Fraction]) -> sympy.Expr:
     if type(number) == fractions.Fraction:
         return place_valued(prime, prime_symbol, number.numerator) / place_valued(prime, prime_symbol, number.denominator)
 
@@ -59,29 +62,29 @@ def place_valued(prime, prime_symbol, number):
 
 
 class PlaneEquation:
-    def __init__(self, A, B, C, D):
+    def __init__(self, A: Union[int, fractions.Fraction], B: Union[int, fractions.Fraction], C: Union[int, fractions.Fraction], D: Union[int, fractions.Fraction]) -> None:
         self.A = A
         self.B = B
         self.C = C
         self.D = D
 
-    def __eq__(self, other):
+    def __eq__(self, other: Any) -> bool:
         if not isinstance(other, PlaneEquation):
             # don't attempt to compare against unrelated types
             return NotImplemented
 
         return self.fractional_expression_string() == other.fractional_expression_string()
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         #return hash((self.A, self.B, self.C, self.D))
         return hash(self.fractional_expression_string())
     
-    def predict(self, y, z):
+    def predict(self, y: Union[int, fractions.Fraction], z: Union[int, fractions.Fraction]) -> fractions.Fraction:
         if self.A == 0:
             raise ValueError("A cannot be zero for this equation.")
         return fractions.Fraction(-self.B*y - self.C*z - self.D,self.A)
 
-    def fractional_expression(self):
+    def fractional_expression(self) -> Tuple[sympy.Expr, sympy.Expr]:
         x, y, z = sympy.symbols('x y z')
         self.fractional_lhs_expression = x
         self.fractional_rhs_expression = (
@@ -99,7 +102,7 @@ class PlaneEquation:
         l,r = self.fractional_expression()
         return str(l) + " = " + str(r)    
 
-    def integer_expression(self):
+    def integer_expression(self) -> Tuple[sympy.Expr, sympy.Expr]:
         x, y, z = sympy.symbols('x y z')
         self.integral_lhs_expression = self.A * x
         self.integral_rhs_expression = - self.B * y - self.C * z - self.D
@@ -113,7 +116,7 @@ class PlaneEquation:
         l,r = self.integer_expression()
         return sympy.latex(l) + " = " + sympy.latex(r)
 
-    def place_valued_integer_expression(self, prime):
+    def place_valued_integer_expression(self, prime: int) -> Tuple[sympy.Expr, sympy.Expr]:
         prime_symbol = sympy.symbols('p')
         a = place_valued(prime, prime_symbol, self.A)
         b = place_valued(prime, prime_symbol, self.B)
@@ -132,7 +135,7 @@ class PlaneEquation:
         l,r = self.place_valued_integer_expression(prime)
         return f"{l} = {r}"
 
-    def place_valued_fractional_expression(self, prime):
+    def place_valued_fractional_expression(self, prime: int) -> Tuple[sympy.Expr, sympy.Expr, sympy.Expr, sympy.Expr]:
         prime_symbol = sympy.symbols('p')
         a = place_valued(prime, prime_symbol, self.A)
         b = place_valued(prime, prime_symbol, self.B)
@@ -164,7 +167,7 @@ class PlaneEquation:
     def __repr__(self):
         return f"{self.fractional_expression_string()} :: {hash(self)} :: {self.A}, {self.B}, {self.C}, {self.D}"
 
-def find_plane_equation(p1, p2, p3):
+def find_plane_equation(p1: List[int], p2: List[int], p3: List[int]) -> PlaneEquation:
     v1 = [p2[i] - p1[i] for i in range(3)]
     v2 = [p3[i] - p1[i] for i in range(3)]
     normal = cross_product(v1, v2)
@@ -173,7 +176,7 @@ def find_plane_equation(p1, p2, p3):
     return PlaneEquation(A, B, C, D)
 
 
-def find_best_hyperplane_by_brute_force(data, prime, show_each_improvement=False, show_all_calcs=False):
+def find_best_hyperplane_by_brute_force(data: List[List[Union[int, fractions.Fraction]]], prime: int, show_each_improvement: bool = False, show_all_calcs: bool = False) -> PlaneEquation:
     if show_all_calcs:
         prime_symbol = sympy.symbols('p')
         #prime_symbol = sympy.symbols(str(prime))        
