@@ -3,6 +3,8 @@
 import argparse
 import json
 import fractions
+import sympy
+import padic
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--prime", type=int, default=409,
@@ -67,23 +69,7 @@ def solve_for_x(equation, y, z):
         raise ValueError("A cannot be zero for this equation.")
     return (-equation.B*y - equation.C*z - equation.D) // equation.A  # Use integer division for integers and fractions
 
-# To-do:
-#   - put padic_measure and padic_distance into a file called padic.py
-#   - padic_measure should check to see if q is fractional. If it is,
-#     then it should call itself with the numerator and denominator and
-#     subtract the latter from the former.
-def padic_measure(prime, q):
-    if q == 0:
-        return 0.0
-    if q % prime != 0:
-        return 1.0
-    return 1.0 + padic_measure(prime, q // prime)
 
-def padic_distance(prime, r, s):
-    q = r - s
-    answer = prime ** (- padic_measure(prime, q))
-    return answer
-    
 best_triple = None
 score = None
 best_equation = None
@@ -101,7 +87,7 @@ for i, p1 in enumerate(data):
             sum_of_residuals = 0.0
             for p4 in data:
                 p4_hat = solve_for_x(equation, p4[1], p4[2])
-                residual = padic_distance(args.prime, p4[0], p4_hat)
+                residual = padic.distance(args.prime, p4[0], p4_hat)
                 sum_of_residuals += residual
             if score is None or sum_of_residuals < score:
                 score = sum_of_residuals
