@@ -55,7 +55,7 @@ class PlaneEquation:
         self.C = C
         self.D = D
 
-    def fractional_expression(self):
+    def fractional_expression(self) -> Tuple[sympy.Expr, sympy.Expr]:
         x, y, z = sympy.symbols('x y z')
         self.fractional_lhs_expression = x
         self.fractional_rhs_expression = (
