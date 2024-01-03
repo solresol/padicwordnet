@@ -24,8 +24,8 @@ jobs:
           pip install nltk
           python -c "import nltk; nltk.download('wordnet')"
 
-      - name: Run wordnet2padic.py
-        run: python wordnet2padic.py
+      - name: Run Makefile
+        run: make
         id: script
 
       - name: Check exit status
