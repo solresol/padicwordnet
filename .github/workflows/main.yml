@@ -21,6 +21,8 @@ jobs:
 
       - name: Install nltk package and download wordnet dataset
         run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pandas
           pip install nltk
           python -c "import nltk; nltk.download('wordnet')"
 
