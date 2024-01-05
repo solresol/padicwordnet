@@ -1,4 +1,6 @@
-all: wordnet.db zorgette-catalog.json zorgette-catalog.tex zorgette-results.tex  zorgette-ols.tex
+all:
+	python -m nltk.downloader wordnet
+	python wordnet2padic.py
 
 wordnet.db: wordnet2padic.py
 	python3 wordnet2padic.py --database wordnet.db
