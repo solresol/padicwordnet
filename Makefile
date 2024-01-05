@@ -1,4 +1,4 @@
-all:
+all: wordnet.db
 	python -m nltk.downloader wordnet
 	python wordnet2padic.py
 
