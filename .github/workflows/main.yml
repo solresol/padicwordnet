@@ -19,13 +19,8 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install nltk package and download wordnet dataset
-        run: |
-          sudo apt-get update
-          pip install pandas
-          pip install jinja2
-          pip install nltk
-          python -c "import nltk; nltk.download('wordnet')"
+      - name: Install Python packages
+        run: pip install -r requirements.txt
 
       - name: Run Makefile
         run: make
