@@ -2,3 +2,4 @@ pandas
 nltk
 sympy
 jinja2
+scikit-learn
