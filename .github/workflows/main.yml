@@ -22,6 +22,9 @@ jobs:
       - name: Install Python packages
         run: pip install -r requirements.txt
 
+      - name: Download WordNet dataset
+        run: python -c "import nltk; nltk.download('wordnet')"
+
       - name: Run Makefile
         run: make
         id: script
