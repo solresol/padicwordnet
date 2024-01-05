@@ -23,6 +23,7 @@ jobs:
         run: |
           sudo apt-get update
           pip install pandas
+          pip install jinja2
           pip install nltk
           python -c "import nltk; nltk.download('wordnet')"
 
