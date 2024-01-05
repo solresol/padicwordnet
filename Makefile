@@ -1,4 +1,4 @@
-all: wordnet.db
+all: wordnet.db zorgette-catalog.json zorgette-catalog.tex zorgette-results.tex zorgette-ols.tex
 	python wordnet2padic.py
 
 wordnet.db: wordnet2padic.py
