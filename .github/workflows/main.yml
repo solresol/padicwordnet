@@ -19,13 +19,14 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install nltk package and download wordnet dataset
-        run: |
-          pip install nltk
-          python -c "import nltk; nltk.download('wordnet')"
+      - name: Install Python packages
+        run: pip install -r requirements.txt
 
-      - name: Run wordnet2padic.py
-        run: python wordnet2padic.py
+      - name: Download WordNet dataset
+        run: python -c "import nltk; nltk.download('wordnet')"
+
+      - name: Run Makefile
+        run: make
         id: script
 
       - name: Check exit status
