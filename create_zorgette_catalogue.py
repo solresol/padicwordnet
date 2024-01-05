@@ -23,7 +23,7 @@ def convert_path_to_number(p: int, path: str) -> int:
     return result
 
 
-def random_synset(dbconn: sqlite3.Connection, under_path: str = '1', how_many: int = 1, minimum_hyponyms: int = 1, maximum_hyponyms : int = 1000000, only_immediately_under_path: bool = False ) -> List[Tuple[str, str]]:
+def random_synset(dbconn: sqlite3.Connection, under_path: str = '1', how_many: int = 1, minimum_hyponyms: int = 1, maximum_hyponyms: int = 1000000, only_immediately_under_path: bool = False) -> List[Tuple[str, str]]:
     """
     Read the 'synset_paths' table from a SQLite database into a DataFrame.
 
@@ -49,7 +49,7 @@ def random_synset(dbconn: sqlite3.Connection, under_path: str = '1', how_many: i
         #for (name,path) in all_synsets:
         #    tail = path[lup:]
         #    print(name,path,tail)
-        def is_under_path(x):
+        def is_under_path(x: str) -> bool:
             return len(x[lup:].split('.')) == 1
         temp_synsets = [(name,path) for (name,path) in all_synsets if is_under_path(path)]
         #print(under_path, lup, len(temp_synsets), all_synsets)
@@ -107,7 +107,7 @@ def errand(dbconn: sqlite3.Connection, good_path: str, bad_path: str, prime: int
     }
 
     
-def main():
+def main() -> None:
     import argparse
     import pandas
 
